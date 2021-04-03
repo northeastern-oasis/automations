@@ -5,7 +5,7 @@ type TeamMember = {
     email: string;
 }
 
-type ResponseType = {
+type FormResponseType = {
     name: string;
     email: string;
     heardAbout: string;
@@ -13,11 +13,15 @@ type ResponseType = {
     teamMembers: TeamMember[];
 }
 
-export default async (event: any = {}): Promise<any> => {
+type EventType = {
+    body: FormResponseType;
+}
+
+export default async (event: EventType): Promise<any> => {
     const response = JSON.stringify(event, null, 2);
 
     // TODO: Add team info to payload
-    const { name, email, heardAbout, projectName, teamMembers } = event.data as ResponseType;
+    const { name, email, heardAbout, projectName, teamMembers } = event.body;
 
     // let project = get or create project with the name projectName
 

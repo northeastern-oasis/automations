@@ -1,15 +1,20 @@
 
-type ResponseType = {
+type FormResponseType = {
     name: string;
     email: string;
     heardAbout: string;
 }
 
-export default async (event: any = {}): Promise<any> => {
-    const response = JSON.stringify(event, null, 2);
+type EventType = {
+    body: FormResponseType;
+}
 
-    const { name, email, heardAbout } = event.data as ResponseType;
-    
+export default async (event: EventType): Promise<any> => {
+    const response = JSON.stringify(event, null, 2);
+    console.log(event);
+
+    const { name, email, heardAbout } = event.body;
+
     // Check that the user does not already exist, if they already exist, do nothing
 
     // Create a new person page with given name and email
