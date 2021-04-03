@@ -5,7 +5,7 @@ type ResponseType = {
     heardAbout: string;
 }
 
-export const handler = async (event: any = {}): Promise<any> => {
+export default async (event: any = {}): Promise<any> => {
     const response = JSON.stringify(event, null, 2);
 
     const { name, email, heardAbout } = event.data as ResponseType;

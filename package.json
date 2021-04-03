@@ -2,7 +2,11 @@
   "name": "automations",
   "version": "1.0.0",
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "build": "node ./node_modules/webpack/bin/webpack.js --config webpack.config.js",
+    "deploy": "sh ./deploy.sh",
+    "push": "npm run build && npm run deploy"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/northeastern-oasis/automations.git"
@@ -15,8 +19,11 @@
   },
   "homepage": "https://github.com/northeastern-oasis/automations#readme",
   "devDependencies": {
-    "@types/node": "^14.14.37",
-    "typescript": "^4.2.3"
+    "enhanced-resolve": "^5.7.0",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.3",
+    "webpack": "^5.30.0",
+    "webpack-cli": "^4.6.0"
   },
   "dependencies": {}
 }

@@ -1,4 +1,5 @@
 
+
 type TeamMember = {
     name: string;
     email: string;
@@ -9,10 +10,10 @@ type ResponseType = {
     email: string;
     heardAbout: string;
     projectName: string;
-    teamMembers: TeamMember[]; // TODO: Get the webhook to match this
+    teamMembers: TeamMember[];
 }
 
-export const handler = async (event: any = {}): Promise<any> => {
+export default async (event: any = {}): Promise<any> => {
     const response = JSON.stringify(event, null, 2);
 
     // TODO: Add team info to payload
