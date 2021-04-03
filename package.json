@@ -1,0 +1,20 @@
+{
+  "name": "automations",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/northeastern-oasis/automations.git"
+  },
+  "keywords": [],
+  "author": "Northeastern Oasis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/northeastern-oasis/automations/issues"
+  },
+  "homepage": "https://github.com/northeastern-oasis/automations#readme",
+  "devDependencies": {
+    "@types/node": "^14.14.37"
+  }
+}
