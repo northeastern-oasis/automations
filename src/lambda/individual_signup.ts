@@ -14,12 +14,12 @@ export const handler = async (event: any = {}): Promise<any> => {
 
     // Create a new person page with given name and email
 
-    // Get the notion page url
+    // Get the person notion page url
 
     // Share the notion page with the given person
 
     // Send them mail chimp email with given params
-    // sendEmail(name, email, notionPageURL)
+    // sendIndividualConfirmation(name, email, notionPersonalPageURL)
     
     return response;
 }
