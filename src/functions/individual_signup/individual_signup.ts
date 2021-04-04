@@ -1,4 +1,3 @@
-
 type FormResponseType = {
     name: string;
     email: string;

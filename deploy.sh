@@ -10,7 +10,6 @@ function deploy_to_aws {
 
 export -f deploy_to_aws
 
-# zip files
 pushd ./dist
 
 ls . | xargs -L 1 -I % zip %.zip %
