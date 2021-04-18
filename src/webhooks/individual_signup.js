@@ -7,7 +7,8 @@ function onSubmit(e) {
     var payload = {};
     payload.name = response[0].getResponse();
     payload.email = response[1].getResponse();
-    payload.heardAbout = response[2].getResponse();
+    payload.profilePhoto = response[2].getResponse();
+    payload.heardAbout = response[3].getResponse();
   
     var options = {
         "method": "post",
