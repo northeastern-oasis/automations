@@ -20,6 +20,8 @@ type EventType = {
 const PEOPLE_DB_ID = 'a58fd4c21e2b49a1958e4cdc003fdea8';
 const PROJECT_DB_ID = 'ac431d060979450193eca35ac0e4871d';
 
+const MOCK_DATA = {};
+
 
 const updateOrCreatePerson = (name, email) => {
 
@@ -38,11 +40,14 @@ export default async (event: EventType): Promise<any> => {
         },
         properties: {
             Name: {
+                type: 'title',
                 title: [
                     {
+                        type: 'text',
                         text: {
                             content: projectName,
                         },
+                    }
                 ],
             },
         }
@@ -77,8 +82,10 @@ export default async (event: EventType): Promise<any> => {
                 },
                 properties: {
                     Name: {
+                        type: 'title',
                         title: [
                             {
+                                type: 'text',
                                 text: {
                                     content: name,
                                 },
@@ -86,15 +93,11 @@ export default async (event: EventType): Promise<any> => {
                         ],
                     },
                     Email: {
-                        text: [
-                            {
-                                text: {
-                                    content: email,
-                                },
-                            },
-                        ],
+                        type: 'email',
+                        email: email
                     },
                     Project: {
+                        // @ts-ignore
                         relation: [
                             {
                               id: project.id
@@ -102,9 +105,9 @@ export default async (event: EventType): Promise<any> => {
                           ]
                     }
                 }
-            }))
-        });
-    }
+            })
+        }
+    }));
     
 
     // Get or create person pages with given names and emails for each teamMember in teamMembers
@@ -137,7 +140,7 @@ export default async (event: EventType): Promise<any> => {
    
 
     // Get the person notion page url
-    const newPersonPageID = newPerson.id;
+    // const newPersonPageID = newPerson.id;
 
 
     // upon filling out team signup form:
