@@ -5,6 +5,7 @@ function onSubmit(e) {
     var latestResponse = allResponses[allResponses.length - 1];
     var response = latestResponse.getItemResponses();
     var payload = {};
+    payload.formTitle = form.getTitle();
     payload.submitterName = response[0].getResponse();
     payload.submitterEmail = response[1].getResponse();
     payload.projectName = response[2].getResponse();

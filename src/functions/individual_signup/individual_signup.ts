@@ -1,4 +1,9 @@
+import { getDatabaseIDs } from "../utils";
+
+const { Client } = require('@notionhq/client');
+
 type FormResponseType = {
+    formTitle: string;
     name: string;
     email: string;
     heardAbout: string;
@@ -8,13 +13,12 @@ type EventType = {
     body: FormResponseType;
 }
 
-const PEOPLE_DB_ID = 'a58fd4c21e2b49a1958e4cdc003fdea8';
-
 export default async (event: EventType): Promise<any> => {
-    const { Client } = require('@notionhq/client');
+    const { PEOPLE_DB_ID } = getDatabaseIDs(event.body)
+
     const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
-    const { name, email, heardAbout } = event.body;
+    const { name, email } = event.body;
 
     // Check if the user is already in the database
     const peopleQuery = await notion.databases.query({

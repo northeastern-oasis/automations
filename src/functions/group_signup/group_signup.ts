@@ -1,4 +1,5 @@
 import { Client } from '@notionhq/client';
+import { getDatabaseIDs } from '../utils';
 
 type TeamMember = {
     name: string;
@@ -6,9 +7,9 @@ type TeamMember = {
 }
 
 type FormResponseType = {
+    formTitle: string;
     name: string;
     email: string;
-    heardAbout: string;
     projectName: string;
     teamMembers: TeamMember[];
 }
@@ -17,17 +18,15 @@ type EventType = {
     body: FormResponseType;
 }
 
-const PEOPLE_DB_ID = 'a58fd4c21e2b49a1958e4cdc003fdea8';
-const PROJECT_DB_ID = 'ac431d060979450193eca35ac0e4871d';
-
 const MOCK_DATA = {};
-
 
 const updateOrCreatePerson = (name, email) => {
 
 };
 
 export default async (event: EventType): Promise<any> => {
+    const { PEOPLE_DB_ID, PROJECT_DB_ID } = getDatabaseIDs(event.body);
+
     const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
     // TODO: Add team info to payload
