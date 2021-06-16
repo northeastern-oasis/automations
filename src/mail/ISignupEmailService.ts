@@ -9,7 +9,7 @@ export interface ISignupEmailService {
         name: string,
         email: string,
         notionPersonalPageURL: string
-    ): boolean;
+    ): Promise<boolean>;
 
     /**
      * Sends a confirmation email addressed to a project creator
@@ -23,7 +23,7 @@ export interface ISignupEmailService {
         email: string,
         notionProjectPageURL: string,
         notionPersonalPageURL: string
-    ): boolean;
+    ): Promise<boolean>;
 
     /**
      * Sends a confirmation email addressed to a project team member
@@ -37,5 +37,5 @@ export interface ISignupEmailService {
         email: string,
         notionProjectPageURL: string,
         notionPersonalPageURL: string
-    ): boolean;
+    ): Promise<boolean>;
 }

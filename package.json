@@ -26,6 +26,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@notionhq/client": "^0.1.8"
+    "@notionhq/client": "^0.1.8",
+    "@sendgrid/mail": "^7.4.2"
   }
 }

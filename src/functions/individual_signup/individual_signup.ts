@@ -1,6 +1,8 @@
 import { getDatabaseIDs } from "../utils";
 
 const { Client } = require('@notionhq/client');
+import SendgridEmailService from "../../mail/SendgridEmailService";
+import { ISignupEmailService } from "../../mail/ISignupEmailService";
 
 type FormResponseType = {
     formTitle: string;
