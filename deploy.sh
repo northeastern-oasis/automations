@@ -25,7 +25,7 @@ if ! command -v COMMAND &> /dev/null; then
   sudo ./aws/install
 fi
 
-function deploy_to_aws {
+deploy_to_aws() {
   FUNCTION_NAME=$(echo $1 | awk 'BEGIN { FS="."; }; { print $1 }')
   aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file fileb://$1
   ENVIRONMENT="Variables={$(sed -e 's/export //' ../.env | tr '\n' ',')}"
