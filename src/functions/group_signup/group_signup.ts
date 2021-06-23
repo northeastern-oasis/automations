@@ -1,5 +1,7 @@
 import { Client } from '@notionhq/client';
 import { getDatabaseIDs } from '../utils';
+import OasisSendgridEmailService from "../../mail/OasisSendgridEmailService";
+import { validateEnvironment } from "../utils";
 
 type TeamMember = {
     name: string;
@@ -18,21 +20,36 @@ type EventType = {
     body: FormResponseType;
 }
 
-const MOCK_DATA = {};
+const MOCK_DATA: EventType = {
+    body: {
+        formTitle: 'Test form',
+        name: 'Sam Xifaras',
+        email: 'xifaras.s@northeastern.edu',
+        projectName: 'Project 1',
+        teamMembers: [
+            {
+                name: 'Will Stenzel',
+                email: 'stenzel.w@northeastern.edu',
+            }
+        ],
+    }
+};
 
-const updateOrCreatePerson = (name, email) => {
+
+const updateOrCreatePerson = (name: string, email: string) => {
 
 };
 
-export default async (event: EventType): Promise<any> => {
+const handler = async (event: EventType): Promise<any> => {
     const { PEOPLE_DB_ID, PROJECT_DB_ID } = getDatabaseIDs(event.body);
-
+    validateEnvironment();
     const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
     // TODO: Add team info to payload
     const { name, email, projectName, teamMembers } = event.body;
 
     // Create project with the name projectName
+    // @ts-ignore
     let project = await notion.pages.create({
         parent: {
             database_id: PROJECT_DB_ID,
@@ -52,12 +69,11 @@ export default async (event: EventType): Promise<any> => {
         }
     });
 
-
     // Create the full team
     const fullTeam: TeamMember[] = [{name, email}, ...teamMembers];
 
     // For each person, including the team creator
-    Promise.all(fullTeam.map(async ({ name, email }) => {
+    await Promise.all(fullTeam.map(async ({ name, email }) => {
         // Check if the user already exists so we don't accidentally make a duplicate entry
         const peopleQuery = await notion.databases.query({
             database_id: PEOPLE_DB_ID,
@@ -75,6 +91,7 @@ export default async (event: EventType): Promise<any> => {
         }
         else {
             // Create a new person page with given name and email
+            // @ts-ignore
             person = await notion.pages.create({
                 parent: {
                     database_id: PEOPLE_DB_ID,
@@ -95,18 +112,47 @@ export default async (event: EventType): Promise<any> => {
                         type: 'email',
                         email: email
                     },
-                    Project: {
-                        // @ts-ignore
-                        relation: [
-                            {
-                              id: project.id
-                            }
-                          ]
-                    }
                 }
             })
         }
+
+        notion.pages.update({
+            page_id: person.id,
+            properties: {
+                Project: {
+                    // @ts-ignore
+                    type: 'relation',
+                    relation: [
+                        {
+                            id: project.id,
+                        }
+                    ]
+                }
+            }
+        })
+
+        return person;
     }));
+
+    const mailService = new OasisSendgridEmailService(
+        // @ts-ignore
+        process.env.SENDGRID_API_KEY,
+        process.env.BASE_TEMPLATE_ID,
+        process.env.SLACK_JOIN_LINK,
+        process.env.OASIS_COHORT_SITE_LINK,
+        process.env.OASIS_COHORT_PEOPLE_LINK,
+    );
+    await mailService.sendProjectCreatorConfirmation(
+        name,
+        email,
+    )
+    for (let teamMember of teamMembers) {
+        await mailService.sendTeamMemberConfirmation(
+            teamMember.name,
+            teamMember.email,
+            name,
+        )
+    }
     
 
     // Get or create person pages with given names and emails for each teamMember in teamMembers
@@ -153,3 +199,7 @@ export default async (event: EventType): Promise<any> => {
     //     does this person not exist?
     //       create a new page with project_id = project
 }
+
+handler(MOCK_DATA);
+
+export default handler;

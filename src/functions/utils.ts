@@ -16,3 +16,27 @@ export const getDatabaseIDs = (body: FormBody) => {
         return { PROJECT_DB_ID: PROD_PROJECT_DB_ID, PEOPLE_DB_ID: PROD_PEOPLE_DB_ID }
     }
 }
+
+/**
+ * Throws an exception if required environment variables are missing
+ */
+export function validateEnvironment(): void {
+    if (!process.env.NOTION_API_KEY) {
+        throw new Error('Environment variable NOTION_API_KEY must be defined')
+    }
+    if (!process.env.SENDGRID_API_KEY) {
+        throw new Error('Environment variable SENDGRID_API_KEY must be defined')
+    }
+    if (!process.env.BASE_TEMPLATE_ID) {
+        throw new Error('Environment variable BASE_TEMPLATE_ID must be defined')
+    }
+    if (!process.env.SLACK_JOIN_LINK) {
+        throw new Error('Environment variable SLACK_JOIN_LINK must be defined')
+    }
+    if (!process.env.OASIS_COHORT_SITE_LINK) {
+        throw new Error('Environment variable OASIS_COHORT_SITE_LINK must be defined')
+    }
+    if (!process.env.OASIS_COHORT_PEOPLE_LINK) {
+        throw new Error('Environment variable OASIS_COHORT_PEOPLE_LINK must be defined')
+    }
+}
