@@ -39,7 +39,7 @@ mkdir -p dist
 pushd ./dist
 
 ls . | xargs -L 1 -I % zip %.zip %
-ls *.zip | xargs -L 1 -I % sh -c 'deploy_to_aws "$@"' _ %
+ls *.zip | xargs -L 1 -I % bash -c 'deploy_to_aws "$@"' _ %
 rm *.zip
 
 popd
