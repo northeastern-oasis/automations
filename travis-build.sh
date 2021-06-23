@@ -1,7 +1,5 @@
 #!/bin/sh
 
-npm install
-
 if [[ "$1" == "prod" ]]; then
   npm run push:prod
 elif [[ "$1" == "staging" ]]; then
