@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Set this so that the aws CLI does not page output, which causes the script to stop executing
 export AWS_PAGER=""

@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "deploy:prod": "sh ./deploy.sh production",
-    "deploy:staging": "sh ./deploy.sh staging",
+    "deploy:prod": "bash ./deploy.sh production",
+    "deploy:staging": "bash ./deploy.sh staging",
     "push:prod": "npm run build && npm run deploy:prod",
     "push:staging": "npm run build && npm run deploy:staging"
   },
