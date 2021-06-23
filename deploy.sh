@@ -35,6 +35,7 @@ function deploy_to_aws {
 export -f deploy_to_aws
 
 echo "Step 3: Deploying lambda functions"
+mkdir -p dist
 pushd ./dist
 
 ls . | xargs -L 1 -I % zip %.zip %

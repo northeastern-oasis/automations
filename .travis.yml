@@ -1,0 +1,11 @@
+dist: xenial
+language: node_js
+deploy:
+  - provider: script
+    script: bash ./travis-build.sh prod
+    on:
+      branch: master
+  - provider: script
+    script: bash ./travis-build.sh staging
+    on:
+      branch: staging

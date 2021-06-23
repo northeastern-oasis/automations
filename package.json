@@ -4,8 +4,10 @@
   "description": "",
   "scripts": {
     "build": "node ./node_modules/webpack/bin/webpack.js --config webpack.config.js",
-    "deploy": "sh ./deploy.sh",
-    "push": "npm run build && npm run deploy"
+    "deploy:prod": "sh ./deploy.sh production",
+    "deploy:staging": "sh ./deploy.sh staging",
+    "push:prod": "npm run build && npm run deploy:production",
+    "push:staging": "npm run build && npm run deploy:staging"
   },
   "repository": {
     "type": "git",
