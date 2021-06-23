@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "npx webpack --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
     "deploy:prod": "sh ./deploy.sh production",
     "deploy:staging": "sh ./deploy.sh staging",
     "push:prod": "npm run build && npm run deploy:prod",
