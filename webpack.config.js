@@ -1,9 +1,11 @@
 const path = require('path');
 
 module.exports = {
+    mode: 'development',
+    devtool: false,
     entry: {
         'individual_signup': './src/functions/individual_signup/individual_signup.ts',
-        'team_signup': './src/functions/team_signup/team_signup.ts'
+        'group_signup': './src/functions/group_signup/group_signup.ts'
     },
     module: {
         rules: [
