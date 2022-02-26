@@ -16,6 +16,5 @@ function onSubmit(e) {
         "contentType": "application/json",
         "payload": JSON.stringify(payload)
     };
-  console.log(options.payload);
-UrlFetchApp.fetch(POST_URL, options);
+  UrlFetchApp.fetch(POST_URL, options);
 };
